@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts"],"version":"5.9.3"}
+{"root":["./src/app.tsx","./src/main.tsx","./src/type.ts","./src/vite-env.d.ts","./src/components/capabilitycard.tsx","./src/components/communitylist.tsx","./src/components/hero.tsx","./src/components/safetycard.tsx","./src/components/sidebar.tsx"],"version":"5.9.3"}
