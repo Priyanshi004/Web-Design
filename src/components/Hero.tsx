@@ -10,11 +10,11 @@ const Hero: React.FC = () => {
         { name: "Google Vids", icon: <Video className="w-5 h-5" />, url: "https://workspace.google.com/products/vids/" },
         { name: "NotebookLM", icon: <BookOpen className="w-5 h-5" />, url: "https://notebooklm.google.com" },
         { name: "Workspace Studio", icon: <Briefcase className="w-5 h-5" />, url: "https://workspace.google.com" },
-        { name: "AI in MSI Operations", icon: <Lightbulb className="w-5 h-5" />, url: "#" },
-        { name: "Gemini Knowledge Base (GKB)", icon: <Database className="w-5 h-5" />, url: "#" },
-        { name: "Gemini Support Pages in BatChat", icon: <MessageSquare className="w-5 h-5" />, url: "#" },
-        { name: "MSI AI Tools List", icon: <List className="w-5 h-5" />, url: "#" },
-        { name: "MSI GenAI Portal", icon: <Target className="w-5 h-5" />, url: "#" },
+        { name: "AI in MSI Operations", icon: <Lightbulb className="w-5 h-5" />, url: "https://batchat.motorolasolutions.com/home/ls/community/generative-ai-enablement" },
+        { name: "Gemini Knowledge Base (GKB)", icon: <Database className="w-5 h-5" />, url: "https://batchat.motorolasolutions.com/home/gemini-knowledge-base-gkb" },
+        { name: "Gemini Support Pages in BatChat", icon: <MessageSquare className="w-5 h-5" />, url: "https://batchat.motorolasolutions.com/home/ls/content/4761540631509933/gemini-batchat-support-pages" },
+        { name: "MSI AI Tools List", icon: <List className="w-5 h-5" />, url: "https://docs.google.com/spreadsheets/d/1WbKF08kwUI2yEYbN2zxB1VNzj4tVLKSFHcgZYGNYIh8/edit?gid=2051282919#gid=2051282919" },
+        { name: "MSI GenAI Portal", icon: <Target className="w-5 h-5" />, url: "https://msi-genai.stage.commandcentral.com/login" },
     ];
 
     return (
