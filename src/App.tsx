@@ -3,6 +3,7 @@ import Hero from './components/Hero.tsx';
 import CapabilityCard from './components/CapabilityCard.tsx';
 import CommunityList from './components/CommunityList.tsx';
 import SafetyCard from './components/SafetyCard.tsx';
+import { AppService } from './configuration/services/appService.js';
 
 const App: React.FC = () => {
   return (
@@ -22,7 +23,7 @@ const App: React.FC = () => {
 
           <div className="max-w-7xl mx-auto relative z-10">
             <div 
-              onClick={() => console.log('PMO Portal clicked')}
+              onClick={() => AppService.navigateToApp('pmo-portal')}
               className="relative bg-gradient-to-br from-slate-800/50 via-slate-800/30 to-blue-900/30 backdrop-blur-sm border border-slate-700/50 hover:border-hub-accent/50 rounded-2xl p-12 shadow-2xl hover:shadow-hub-accent/30 transition-all hover:scale-[1.01] cursor-pointer group overflow-hidden"
             >
               {/* Animated background shine */}
@@ -88,17 +89,20 @@ const App: React.FC = () => {
               <CapabilityCard 
                 title="Intelligent Planning" 
                 description="Automatized Project Management Plan creation " 
-                icon="🧠" 
+                icon="🧠"
+                appId="ai-planning" 
               />
               <CapabilityCard 
                 title="Predictive Analytics" 
                 description="Early risk detection & management plan adjustment " 
-                icon="🔍" 
+                icon="🔍"
+                appId="predictive-analytics" 
               />
               <CapabilityCard 
                 title="Smart Collaboration" 
                 description="AI-driven communication & insights " 
-                icon="🎧" 
+                icon="🎧"
+                appId="smart-collaboration" 
               />
             </div>
           </section>

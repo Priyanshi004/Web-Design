@@ -1,7 +1,11 @@
 import React from "react";
+import { AppService } from "../configuration/services/appService.js";
 
 const SafetyCard: React.FC=()=>(
-    <div className="relative bg-gradient-to-br from-[#0b1221] via-slate-900/50 to-purple-900/20 border border-hub-accent/20 hover:border-hub-accent/40 p-8 rounded-2xl shadow-2xl hover:shadow-hub-accent/20 transition-all group animate-fade-in-up overflow-hidden">
+    <div 
+        onClick={() => AppService.navigateToApp('safety-training')}
+        className="relative bg-gradient-to-br from-[#0b1221] via-slate-900/50 to-purple-900/20 border border-hub-accent/20 hover:border-hub-accent/40 p-8 rounded-2xl shadow-2xl hover:shadow-hub-accent/20 transition-all group animate-fade-in-up overflow-hidden cursor-pointer"
+    >
         {/* Animated glow effect */}
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
         
@@ -18,10 +22,6 @@ const SafetyCard: React.FC=()=>(
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-hub-accent font-semibold italic"> ("Your chats do not train the model") </span>,
                 retention policies (18 months), and organization tips.
             </p>
-            <div className="flex items-center gap-6 pt-6 border-t border-slate-800 text-xs text-slate-500 font-medium">
-                <span className="group-hover:text-hub-accent transition-colors">📚 Level 2</span>
-                <span className="group-hover:text-hub-accent transition-colors">⏱️ 30 mins</span>
-            </div>
         </div>
     </div>
 );

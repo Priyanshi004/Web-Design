@@ -1,24 +1,43 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, Video, BookOpen, Briefcase, Lightbulb, Database, MessageSquare, List, Target } from "lucide-react";
+import { AppService } from "../configuration/services/appService.js";
 
 const Hero: React.FC = () => {
     const [showTools, setShowTools] = useState(false);
 
-    const tools = [
-        { name: "Gemini App", icon: <Sparkles className="w-5 h-5" />, url: "https://gemini.google.com" },
-        { name: "Google Vids", icon: <Video className="w-5 h-5" />, url: "https://workspace.google.com/products/vids/" },
-        { name: "NotebookLM", icon: <BookOpen className="w-5 h-5" />, url: "https://notebooklm.google.com" },
-        { name: "Workspace Studio", icon: <Briefcase className="w-5 h-5" />, url: "https://workspace.google.com" },
-        { name: "AI in MSI Operations", icon: <Lightbulb className="w-5 h-5" />, url: "https://batchat.motorolasolutions.com/home/ls/community/generative-ai-enablement" },
-        { name: "Gemini Knowledge Base (GKB)", icon: <Database className="w-5 h-5" />, url: "https://batchat.motorolasolutions.com/home/gemini-knowledge-base-gkb" },
-        { name: "Gemini Support Pages in BatChat", icon: <MessageSquare className="w-5 h-5" />, url: "https://batchat.motorolasolutions.com/home/ls/content/4761540631509933/gemini-batchat-support-pages" },
-        { name: "MSI AI Tools List", icon: <List className="w-5 h-5" />, url: "https://docs.google.com/spreadsheets/d/1WbKF08kwUI2yEYbN2zxB1VNzj4tVLKSFHcgZYGNYIh8/edit?gid=2051282919#gid=2051282919" },
-        { name: "MSI GenAI Portal", icon: <Target className="w-5 h-5" />, url: "https://msi-genai.stage.commandcentral.com/login" },
-    ];
+    // Map of app IDs to their Lucide icons
+    // Map of app IDs to their Lucide icons with Brand Colors
+    const iconMap: Record<string, JSX.Element> = {
+        'gemini': <Sparkles className="w-10 h-10 stroke-[url(#gemini-gradient)]" strokeWidth={2.5} />,
+        'googlevids': <Video className="w-10 h-10 text-[#00A496]" strokeWidth={2.5} />,
+        'notebooklm': <BookOpen className="w-10 h-10 text-[#4285F4]" strokeWidth={2.5} />,
+        'workspace-studio': <Briefcase className="w-10 h-10 text-[#FBBC04]" strokeWidth={2.5} />,
+        'ai-msi-operations': <Lightbulb className="w-10 h-10 text-hub-accent" strokeWidth={2.5} />,
+        'gemini-knowledge-base': <Database className="w-10 h-10 text-[#F48FB1]" strokeWidth={2.5} />,
+        'gemini-support': <MessageSquare className="w-10 h-10 text-[#80DEEA]" strokeWidth={2.5} />,
+        'msi-ai-tools-list': <List className="w-10 h-10 text-hub-accent" strokeWidth={2.5} />,
+        'msi-genai-portal': <Target className="w-10 h-10 text-hub-accent" strokeWidth={2.5} />,
+    };
+
+    // Get GenAI tools from centralized config
+    const genaiTools = AppService.getAllApps().filter(app => 
+        ['gemini', 'googlevids', 'notebooklm', 'workspace-studio', 
+         'ai-msi-operations', 'gemini-knowledge-base', 'gemini-support', 
+         'msi-ai-tools-list', 'msi-genai-portal'].includes(app.id)
+    );
 
     return (
         <header className="relative py-24 px-12 bg-gradient-to-br from-slate-900 via-[#0f172a] to-blue-900 border-b border-slate-800 overflow-hidden">
+            <svg width="0" height="0" className="absolute">
+                <defs>
+                    <linearGradient id="gemini-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#4285F4" />
+                        <stop offset="50%" stopColor="#F48FB1" />
+                        <stop offset="100%" stopColor="#80DEEA" />
+                    </linearGradient>
+                </defs>
+            </svg>
             {/* Animated background gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-hub-accent/10 via-purple-500/10 to-pink-500/10 animate-pulse opacity-50"></div>
             
@@ -57,26 +76,23 @@ const Hero: React.FC = () => {
                                 <span className="w-1 h-4 bg-hub-accent rounded-full"></span>
                                 GENAI @MSI
                             </h3>
-                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                                {tools.map((tool, index) => (
-                                    <motion.a
-                                        key={tool.name}
-                                        href={tool.url !== "#" ? tool.url : undefined}
-                                        target={tool.url !== "#" ? "_blank" : undefined}
-                                        rel={tool.url !== "#" ? "noopener noreferrer" : undefined}
-                                        onClick={(e) => tool.url === "#" && e.preventDefault()}
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto">
+                                {genaiTools.map((tool, index) => (
+                                    <motion.div
+                                        key={tool.id}
+                                        onClick={() => AppService.navigateToApp(tool.id)}
                                         initial={{ opacity: 0, scale: 0.8 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         transition={{ delay: index * 0.1, duration: 0.5 }}
                                         className="flex flex-col items-center gap-4 cursor-pointer group no-underline"
                                     >
-                                        <div className="w-28 h-28 rounded-2xl bg-slate-800/40 backdrop-blur-sm border-2 border-slate-700/50 hover:border-hub-accent/70 flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-hub-accent/20 transition-all group-hover:scale-110">
+                                        <div className="w-40 h-40 rounded-3xl bg-slate-800/40 backdrop-blur-sm border-2 border-slate-700/50 hover:border-hub-accent/70 flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-hub-accent/20 transition-all group-hover:scale-110">
                                             <div className="text-hub-accent group-hover:scale-125 transition-transform">
-                                                {tool.icon}
+                                                {iconMap[tool.id] || <span className="text-5xl">{tool.icon}</span>}
                                             </div>
                                         </div>
-                                        <span className="text-sm font-semibold text-white text-center max-w-[120px] leading-tight">{tool.name}</span>
-                                    </motion.a>
+                                        <span className="text-lg font-bold text-white text-center max-w-[160px] leading-tight drop-shadow-lg">{tool.name}</span>
+                                    </motion.div>
                                 ))}
                             </div>
                         </div>
